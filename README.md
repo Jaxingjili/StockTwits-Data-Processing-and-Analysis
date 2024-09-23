@@ -4,11 +4,94 @@ We introduce the first publicly available comprehensive data set of posts on a s
 - [Data Release and Access](#data-release-and-access)
 - [Dataset Description](#dataset-description)
 - [Analysis Templates Overview](#analysis-templates-overview)
-  
+- [Data Analysis Tutorial](#data-analysis-tutorials)
+- [Citing the Project](#citing-the-project)
+- [Contect](#contect)
 
 ## Data Release and Access
+The data set is stored in an Amazon S3 bucket and is available for public access through the [AWS Open Data Registry](fill later)
 ## Dataset Description
 
+### Dataset Overview
+This dataset contains several types of CSV files organized in a versioned structure. Below is the directory structure for version 1 of the dataset:
+
+- `dataset/`
+  - `README.md`: Overview of the dataset, this README file povides up-to-date information on the structure, usage, and content of the data.
+  - `v1/`: Version 1 of the dataset
+    - `data/`: Contains all CSV data files
+      - `csv/`: Root directory for CSV files
+        - `feature_wo_messages/`: Features excluding messages
+          - `feature_wo_messages_000.csv`
+          - Other files in the format `feature_wo_messages_###.csv`
+        - `messages/`: Messages data
+          - `msg_000.csv`
+          - Other files in the format `msg_###.csv`
+        - `msg_infos/`: Metadata about messages
+          - `msg_info_00.csv`
+          - Other files in the format `msg_info_###.csv`
+        - `sentiments/`: Sentiment analysis data
+          - `sentiment_00.csv`
+          - Other files in the format `sentiment_###.csv`
+        - `symbols/`: Symbol-related data
+          - `symbol_000.csv`
+          - Other files in the format `symbol_###.csv`
+        - `symbol_sentiments/`: Sentiments tied to symbols
+          - `symbol_sentiments_00.csv`
+          - Other files in the format `symbol_sentiments_###.csv`
+This structure may change as future versions of the dataset are released.
+
+### Table Description
+This dataset consists of multiple CSV files, each containing specific types of information. Below is a detailed explanation of each folder and the columns in the associated files:
+
+- **feature_wo_messages**: features excluding meassge-content related ones
+  - Contains files like `feature_wo_messages_000.csv`.
+  - Columns:
+    - `message_id`: Unique identifier for the message.
+    - `user_id`: Identifier for the user who created the message.
+    - `created_at`: Timestamp of message creation.
+    - `sentiment`: Sentiment score or label.
+    - `parent_message_id`: ID of the parent message, if it's a reply.
+    - `in_reply_to_message_id`: ID of the message being replied to.
+    - `symbol_list`: List of symbols mentioned in the message.
+
+- **messages**: message_id - message content map
+  - Contains files like `msg_000.csv`.
+  - Columns:
+    - `message_id`: Unique identifier for the message.
+    - `message_body`: The text content of the message.
+
+- **msg_infos**: message-content related features
+  - Contains files like `msg_info_00.csv`.
+  - Columns:
+    - `message_id`: Unique identifier for the message.
+    - `length`: Length of the message.
+    - `important_words`: Key words extracted from the message.
+
+- **sentiments**: the features for meassges that have user-labeled sentiment
+  - Contains files like `sentiment_00.csv`.
+  - Columns:
+    - `message_id`: Unique identifier for the message.
+    - `user_id`: Identifier for the user who created the message.
+    - `created_at`: Timestamp of message creation.
+    - `sentiment`: Sentiment score or label.
+    - `symbol_list`: List of symbols mentioned in the message.
+
+- **symbols**: the features for meassges that have user-tagged stock tickers
+  - Contains files like `symbol_000.csv`.
+  - Columns:
+    - `message_id`: Unique identifier for the message.
+    - `user_id`: Identifier for the user who created the message.
+    - `created_at`: Timestamp of message creation.
+    - `sentiment`: Sentiment score or label.
+    - `symbol_list`: List of symbols mentioned in the message.
+    - `sym_number`: Number of symbols in the message.
+    - `symbol`: The actual symbol referenced.
+
+- **symbol_sentiments**:the features for meassges that have both user-tagged stock tickers and user-labeled sentiment
+  - Contains files like `symbol_sentiments_00.csv`, which mirrors the structure of the `sentiments` files.
+  - Columns are the same as in the `sentiments` directory.
+
+## Analysis Templates Overview
 ### A_data_process.ipynb
 In this notebook, we process the raw data:
 - Repack and clean the raw grabbed StockTwis data.
@@ -27,4 +110,15 @@ In this notebook, we do analysis on the correlation between sentiment, populatit
 
 ### D_analysis_on_message_body.ipynb
 - We analysis the difference in users' posts about a stock during different(bullish and bearish) time periods.
-## Analysis Templates Overview
+
+
+
+
+## Data Analysis Tutorials
+
+
+
+## Citing the Project
+
+## Contect
+
