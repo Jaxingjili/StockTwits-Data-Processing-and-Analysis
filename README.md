@@ -1,11 +1,13 @@
-# StockTwits-Data-Processing-and-Analysis
-Code for paper: StockTwits: Comprehensive records of a financial social media platform from 2008 to 2022
+# StockTwits: Comprehensive records of a financial social media platform from 2008 to 2022
+We introduce the first publicly available comprehensive data set of posts on a social media platform: StockTwits. StockTwits is a financial social media platform where more than 7 million active users discuss financial markets and investing strategies across 550 million posts since 2008. We provide a complete record of all StockTwits posts up to 2022, including the poster's anonymous ID, the text and timestamp of the message, and whether the user tagged their own post as optimistic (``bullish'') or pessimistic (``bearish''). We study the temporal dynamics of this data set, analyzing it at both the ticker-level and the user-level to illustrate this data set's value. We show how to use this data set to (1) measure individual users' predictive accuracy, and (2) discover heterogeneity in how well sentiment predicts stock price movement. 
+## Content
+- [Data Release and Access](#data-release-and-access)
+- [Dataset Description](#dataset-description)
+- [Analysis Templates Overview](#analysis-templates-overview)
+  
 
-The code inldue 5 jupyter notebooks: 
-1. A_data_process.ipynb
-2. B_analysis_on_popularity_dynamics.ipynb
-3. C_analysis_on_sentiment-popularity-stock_relation.ipynb
-4. D_analysis_on_message_body.ipynb
+## Data Release and Access
+## Dataset Description
 
 ### A_data_process.ipynb
 In this notebook, we process the raw data:
@@ -25,4 +27,4 @@ In this notebook, we do analysis on the correlation between sentiment, populatit
 
 ### D_analysis_on_message_body.ipynb
 - We analysis the difference in users' posts about a stock during different(bullish and bearish) time periods.
-
+## Analysis Templates Overview
