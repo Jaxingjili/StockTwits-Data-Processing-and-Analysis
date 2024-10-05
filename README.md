@@ -111,14 +111,22 @@ In this notebook, we do analysis on the correlation between sentiment, populatit
 ### D_analysis_on_message_body.ipynb
 - We analysis the difference in users' posts about a stock during different(bullish and bearish) time periods.
 
-
+### E_tutorial_for_using_data.ipynb
+- This is a short tutorial for using the data, more details are explained in the following section. 
 
 
 ## Data Analysis Tutorials
+Here is a short tutorial for using the dataset: (E_tutorial_for_using_data.ipynb)
 
+This notebook stands as a tutorial(demo) for using the StockTwits data we provide to do some analysis. 
+As the goal for this notebook is to show how to use the data, in this notebook, we provide a demo for a simple goal: how popular stocks' popularity V.S stock price looks like? This demo explains:
+- how to choose a suitable dataset for a specific analysis
+- how to access and manipulate the dataset
+- how to complement the dataset with stock-related information with yfinance API
+- NOTE: the demo is made in a python 3.11.2 kernal
 
 
 ## Citing the Project
-
+Fill later
 ## Contect
-
+Fill later
