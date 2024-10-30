@@ -26,21 +26,32 @@ pip install dask
 
 ### 1. Directory Structure
 
-The directory structure of the `repo/dataset` folder is as follows:
+The directory structure of the `dataset` folder is as follows:
 
-```
-repo/
-└── dataset
-    ├── README.md
-    └── v1
-        └── data
-            └── csv
-                ├── feature_wo_messages
-                ├── messages 
-                ├── msg_info
-                ├── sentiments
-                ├── symbols
-                └── symbol_sentiments
+```sh
+dataset/
+├── README.md
+└── v1
+    └── data
+        └── csv
+            ├── feature_wo_messages
+            │   ├── feature_wo_messages_000.csv
+            │   └── ... 
+            ├── messages
+            │   ├── msg_000.csv
+            │   └── ... 
+            ├── msg_info
+            │   ├── msg_info_00.csv
+            │   └── ...
+            ├── sentiments
+            │   ├── sentiment_00.csv
+            │   └── ...
+            ├── symbols
+            │   ├── symbol_000.csv
+            │   └── ...
+            └── symbol_sentiments
+                ├── symbol_sentiments_00.csv
+                └── ...
 ```
 
 Each folder in the `csv` directory contains CSV files. These files are crucial for various analytical and data processing tasks.
@@ -49,28 +60,33 @@ Each folder in the `csv` directory contains CSV files. These files are crucial f
 
 The dataset will be hosted on an AWS S3 bucket, and you can use the AWS CLI.
 
+```bash
+BASE_URL="s3://stocktwits-nyu"
+CSV_URL="${BASE_URL}/dataset/v1/data/csv"
+```
+
 #### **Example Commands:**
 
-1. **Listing Files in the S3 Bucket:**
+- **Listing Files in the S3 Bucket:**
 
 ```bash
-aws s3 ls --no-sign-request s3://BUCKET_DATASET_S3_PLACEHOLDER
+aws s3 ls --no-sign-request $CSV_URL
 ```
 
 This command will list all files available in the specified path.
 
-2. **Downloading a Specific File:**
+- **Downloading a Specific File:**
 
 ```bash
-aws s3 cp --no-sign-request s3://BUCKET_DATASET_S3_PLACEHOLDER/feature_wo_messages/feature_wo_messages_000.csv .
+aws s3 cp --no-sign-request $CSV_URL/feature_wo_messages/feature_wo_messages_000.csv .
 ```
 
 This command will download `feature_wo_messages_000.csv` to the current directory.
 
-3. **Synchronizing an Entire Directory:**
+- **Synchronizing an Entire Directory:**
 
 ```bash
-aws s3 sync --no-sign-request s3://BUCKET_DATASET_S3_PLACEHOLDER/ .
+aws s3 sync --no-sign-request $CSV_URL/ .
 ```
 
 This command will download all files from the specified S3 path to your local directory, maintaining the folder structure.
@@ -79,13 +95,18 @@ This command will download all files from the specified S3 path to your local di
 
 If you prefer to directly load the dataset from S3 without downloading, you can use Python libraries like `pandas` or `dask` to read CSV files from the S3 URL.
 
+```python
+BASE_URL = "s3://stocktwits-nyu" # or local path BASE_URL="local_path"
+CSV_URL = f"{BASE_URL}/dataset/v1/data/csv"
+```
+
 #### **Reading with `pandas`:**
 
 ```python
 import pandas as pd
 
-s3_url = "s3://BUCKET_DATASET_S3_PLACEHOLDER/feature_wo_messages/feature_wo_messages_000.csv"
-df = pd.read_csv(s3_url)
+data_url = f"{CSV_URL}/feature_wo_messages/feature_wo_messages_000.csv"
+df = pd.read_csv(data_url, dtype={"sentiment": "object", "message_id": "object"})
 print(df.head())
 ```
 
@@ -94,8 +115,8 @@ print(df.head())
 ```python
 import dask.dataframe as dd
 
-s3_url = "s3://BUCKET_DATASET_S3_PLACEHOLDER/feature_wo_messages/*.csv"
-df_dask = dd.read_csv(s3_url)
+data_url = f"{CSV_URL}/feature_wo_messages/*.csv"
+df_dask = dd.read_csv(data_url, dtype={"sentiment": "object", "message_id": "object"})
 print(df_dask.head())
 ```
 
@@ -124,24 +145,25 @@ Here is a consolidated example to load and explore all the datasets using Dask:
 ```python
 import dask.dataframe as dd
 
-# Dictionary containing paths to sample CSV files on S3
+# S3 paths to CSV files
 file_paths = {
-    "Feature Without Messages": "s3://your-bucket-name/path/to/dataset/feature_wo_messages/*.csv",
-    "Messages": "s3://your-bucket-name/path/to/dataset/messages/*.csv",
-    "Message Info": "s3://your-bucket-name/path/to/dataset/msg_info/*.csv",
-    "Sentiments": "s3://your-bucket-name/path/to/dataset/sentiments/*.csv",
-    "Symbols": "s3://your-bucket-name/path/to/dataset/symbols/*.csv",
-    "Symbol Sentiments": "s3://your-bucket-name/path/to/dataset/symbol_sentiments/*.csv"
+    "Feature Without Messages": f"{CSV_URL}/feature_wo_messages/*.csv",
+    "Messages": f"{CSV_URL}/messages/*.csv",
+    "Message Info": f"{CSV_URL}/msg_info/*.csv",
+    "Sentiments": f"{CSV_URL}/sentiments/*.csv",
+    "Symbols": f"{CSV_URL}/symbols/*.csv",
+    "Symbol Sentiments": f"{CSV_URL}/symbol_sentiments/*.csv"
 }
 
 # Load and display each file using Dask
 for key, path in file_paths.items():
     print(f"--- {key} ---")
-    df = dd.read_csv(path)
-    print(df.head(), "\n") 
+    df = dd.read_csv(path, dtype={"sentiment": "object", "message_id": "object"})
+    print(df.head(), "\n")
 ```
 
 #### Output
+
 ```py
 --- Feature Without Messages ---
   message_id  user_id            created_at sentiment  parent_message_id  in_reply_to_message_id symbol_list
@@ -199,7 +221,6 @@ for key, path in file_paths.items():
 - **Handles Large Files**: Dask efficiently handles files that are too large to fit in memory.
 - **Parallel Computation**: It can utilize multiple cores, making data processing faster.
 - **Scalable**: As data grows, Dask scales from a single machine to a distributed cluster.
-
 
 ### 6. Conclusion
 
