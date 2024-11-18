@@ -129,4 +129,5 @@ As the goal for this notebook is to show how to use the data, in this notebook, 
 ## Citing the Project
 Fill later
 ## Contect
-Fill later
+- Xingji "Jax" Li: xl2860@nyu.edu
+- Aaron Kaufman: aaronkaufman@nyu.edu
