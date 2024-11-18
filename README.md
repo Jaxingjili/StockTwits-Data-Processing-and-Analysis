@@ -116,6 +116,10 @@ In this notebook, we do analysis on the correlation between sentiment, populatit
 
 
 ## Data Analysis Tutorials
+### Access the dataset
+Check the dataset_access.md for details. 
+
+### Data Analysis Demo
 Here is a short tutorial for using the dataset: (E_tutorial_for_using_data.ipynb)
 
 This notebook stands as a tutorial(demo) for using the StockTwits data we provide to do some analysis. 
