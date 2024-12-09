@@ -115,7 +115,8 @@ In this notebook, we do analysis on the correlation between sentiment, populatit
 ### E1&2_weekly_stock_network_visulization (ipynb and html)
 - We produce filtered weekly ticker-ticker network visulizations.
 - The visulizations are web-based(html) dynamic network looks like the following.
-- 
+![Diagram](https://github.com/Jaxingjili/StockTwits-Data-Processing-and-Analysis/blob/main/E3_visualization_example.png)
+
 ### G_tutorial_for_using_data.ipynb
 - This is a short tutorial for using the data, more details are explained in the following section. 
 
