@@ -11,7 +11,7 @@ We introduce the first publicly available comprehensive data set of posts on a s
 - [Contect](#contect)
 
 ## Data Release and Access
-The data set is stored in an Amazon S3 bucket and is available for public access through the [AWS Open Data Registry](fill later)
+The data set is stored in an Amazon S3 bucket and is available for public access. See dataset_access.md for detailed instructions.
 ## Dataset Description
 
 ### Dataset Overview
